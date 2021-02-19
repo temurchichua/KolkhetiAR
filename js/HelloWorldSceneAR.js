@@ -8,7 +8,7 @@ import {
   ViroARScene,
   ViroText,
   ViroConstants,
-  ViroBox,
+  ViroAmbientLight,
   ViroMaterials,
   Viro3DObject,
   ViroARTrackingTargets,
@@ -35,18 +35,12 @@ export default class HelloWorldSceneAR extends Component {
     return (
         <ViroARScene onTrackingUpdated={this._onInitialized} >
           <ViroText text={this.state.text} scale={[.5, .5, .5]} position={[0, 0, -1]} style={styles.helloWorldTextStyle} />
-          {/*<ViroBox position={[0, -.5, -1]} scale={[.3, .3, .1]} materials={["grid"]} />*/}
-          <ViroARImageMarker target={"logo"} onAnchorFound={this._onAnchorFound} pauseUpdates={this.state.pauseUpdates}>
 
-            {/*<Viro3DObject source={require('./res/alien/untitled_obj.obj')}*/}
-            {/*              scale={[.001,.001,.001]}*/}
-            {/*              materials={["aliengirl"]}*/}
-            {/*              type="OBJ"/>*/}
+          <ViroARImageMarker target={"hekate"} onAnchorFound={this._onAnchorFound} pauseUpdates={this.state.pauseUpdates}>
 
-            <Viro3DObject source={require('./res/hekate/untitled_obj.obj')}
-                          resources={[require('./res/hekate/untitled.mtl'),
-                                      require('./res/hekate/3Surface_Color.png'),]}
-                          scale={[.001,.001,.001]}
+            <Viro3DObject source={require('./res/hekate/hekate.obj')}
+                          materials={["hekate"]}
+                          scale={[1, 1, 1]}
                           type="OBJ"/>
 
 
@@ -54,14 +48,96 @@ export default class HelloWorldSceneAR extends Component {
                 innerAngle={5}
                 outerAngle={25}
                 direction={[0,-1,0]}
-                position={[0, 5, 1]}
+                position={[0, 3, 1]}
                 color="#ffffff"
                 castsShadow={true}
                 shadowMapSize={2048}
                 shadowNearZ={2}
                 shadowFarZ={7}
                 shadowOpacity={.7} />
+            <ViroAmbientLight color="#FFFFFF" />
+            <ViroQuad
+                rotation={[-90, 0, 0]}
+                position={[0, -0.001, 0]}
+                width={2.5} height={2.5}
+                arShadowReceiver={true} />
 
+          </ViroARImageMarker>
+
+          <ViroARImageMarker target={"dolphin"} onAnchorFound={this._onAnchorFound} pauseUpdates={this.state.pauseUpdates}>
+
+            <Viro3DObject source={require('./res/dolphin/dolphin.obj')}
+                          materials={["dolphin"]}
+                          scale={[1, 1, 1]}
+                          type="OBJ"/>
+
+
+            <ViroSpotLight
+                innerAngle={5}
+                outerAngle={25}
+                direction={[0,-1,0]}
+                position={[0, 3, 1]}
+                color="#ffffff"
+                castsShadow={true}
+                shadowMapSize={2048}
+                shadowNearZ={2}
+                shadowFarZ={7}
+                shadowOpacity={.7} />
+            <ViroAmbientLight color="#FFFFFF" />
+            <ViroQuad
+                rotation={[-90, 0, 0]}
+                position={[0, -0.001, 0]}
+                width={2.5} height={2.5}
+                arShadowReceiver={true} />
+
+          </ViroARImageMarker>
+
+          <ViroARImageMarker target={"goldenfleece"} onAnchorFound={this._onAnchorFound} pauseUpdates={this.state.pauseUpdates}>
+
+            <Viro3DObject source={require('./res/goldenfleece/goldenfleece.obj')}
+                          materials={["goldenfleece"]}
+                          scale={[1, 1, 1]}
+                          type="OBJ"/>
+
+            <ViroSpotLight
+                innerAngle={5}
+                outerAngle={25}
+                direction={[0,-1,0]}
+                position={[0, 3, 1]}
+                color="#ffffff"
+                castsShadow={true}
+                shadowMapSize={2048}
+                shadowNearZ={2}
+                shadowFarZ={7}
+                shadowOpacity={.7} />
+            <ViroAmbientLight color="#FFFFFF" />
+            <ViroQuad
+                rotation={[-90, 0, 0]}
+                position={[0, -0.001, 0]}
+                width={2.5} height={2.5}
+                arShadowReceiver={true} />
+
+          </ViroARImageMarker>
+
+          <ViroARImageMarker target={"diadem"} onAnchorFound={this._onAnchorFound} pauseUpdates={this.state.pauseUpdates}>
+
+            <Viro3DObject source={require('./res/diadem/diadem.obj')}
+                          materials={["diadem"]}
+                          scale={[0.3, 0.3, 0.3]}
+                          type="OBJ"/>
+
+            <ViroSpotLight
+                innerAngle={5}
+                outerAngle={25}
+                direction={[0,-1,0]}
+                position={[0, 3, 1]}
+                color="#ffffff"
+                castsShadow={true}
+                shadowMapSize={2048}
+                shadowNearZ={2}
+                shadowFarZ={7}
+                shadowOpacity={.7} />
+            <ViroAmbientLight color="#FFFFFF" />
             <ViroQuad
                 rotation={[-90, 0, 0]}
                 position={[0, -0.001, 0]}
@@ -95,20 +171,46 @@ var styles = StyleSheet.create({
 });
 
 ViroMaterials.createMaterials({
-  grid: {
-    diffuseTexture: require('./res/grid_bg.jpg'),
-  },
-  aliengirl: {
+  diadem: {
     lightingModel: "Constant",
-    diffuseTexture: require('./res/alien/aliengirl_diffuse.png'),
-    normalTexture: require('./res/alien/aliengirl_normal.png'),
-    specularTexture: require('./res/alien/aliengirl_specular.png')
+    diffuseTexture: require('./res/diadem/diffuse.png'),
+    normalTexture: require('./res/diadem/norm.png'),
+  },
+  goldenfleece: {
+    lightingModel: "Constant",
+    diffuseTexture: require('./res/goldenfleece/diffuse.png'),
+    normalTexture: require('./res/goldenfleece/norm.png'),
+  },
+  dolphin: {
+    lightingModel: "Constant",
+    diffuseTexture: require('./res/dolphin/diffuse.png'),
+    normalTexture: require('./res/dolphin/dolphinNormal.png'),
+  },
+  hekate: {
+    lightingModel: "Constant",
+    diffuseTexture: require('./res/hekate/diffuse.png'),
+    normalTexture: require('./res/hekate/normal.png'),
   },
 });
 
 ViroARTrackingTargets.createTargets({
-  logo : {
-    source : require('./res/img.png'),
+  diadem : {
+    source : require('./res/markers/diadem.png'),
+    orientation : "Up",
+    physicalWidth : 0.110 // real world width in meters
+  },
+  hekate : {
+    source : require('./res/markers/hekate.png'),
+    orientation : "Up",
+    physicalWidth : 0.1 // real world width in meters
+  },
+  dolphin : {
+    source : require('./res/markers/dolphin.png'),
+    orientation : "Up",
+    physicalWidth : 0.110 // real world width in meters
+  },
+  goldenfleece : {
+    source : require('./res/markers/goldenfleece.png'),
     orientation : "Up",
     physicalWidth : 0.110 // real world width in meters
   }

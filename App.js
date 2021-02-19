@@ -103,7 +103,7 @@ export default class ViroSample extends Component {
         initialScene={{scene: InitialARScene}} />
     );
   }
-  
+
   // Returns the ViroSceneNavigator which will start the VR experience
   _getVRNavigator() {
     return (

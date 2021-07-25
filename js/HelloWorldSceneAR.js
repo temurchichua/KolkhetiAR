@@ -56,6 +56,26 @@ export default class HelloWorldSceneAR extends Component {
                             onFinish: this._onHekateFinished }}
                           type="OBJ"/>
 
+            <ViroSpotLight
+                innerAngle={5}
+                outerAngle={25}
+                direction={[0,-1,0]}
+                position={[0, 3, 1]}
+                color="#ffffff"
+                castsShadow={true}
+                shadowMapSize={2048}
+                shadowNearZ={2}
+                shadowFarZ={7}
+                shadowOpacity={.7} />
+
+            <ViroAmbientLight color="#FFFFFF" />
+
+            <ViroQuad
+                rotation={[-90, 0, 0]}
+                position={[0, -0.001, 0]}
+                width={2.5} height={2.5}
+                arShadowReceiver={true} />
+
           </ViroARImageMarker>
 
           <ViroARImageMarker target={"dolphin"} onAnchorFound={this._onDolphinFound} pauseUpdates={this.state.pauseUpdates}>
@@ -91,7 +111,7 @@ export default class HelloWorldSceneAR extends Component {
                           animation={{name:'mainAnimation',
                             run:this.state.animateBorjgali,
                             delay:500}}
-                          />
+            />
 
           </ViroARImageMarker>
 
@@ -254,7 +274,6 @@ ViroMaterials.createMaterials({
   hekate: {
     lightingModel: "Constant",
     diffuseTexture: require('./res/hekate/black.png'),
-    normalTexture: require('./res/hekate/normal.png'),
   },
 });
 
@@ -302,14 +321,14 @@ function _onAnimationFinished() {
 
 ViroAnimations.registerAnimations({
   scaleUp:{properties:{scaleX:1, scaleY:1, scaleZ:1, opacity: 1},
-                  duration: 1000, easing: "EaseIn"},
+    duration: 1000, easing: "EaseIn"},
   loopRotate: { properties: { rotateY: "+=720" },
-                  easing:"EaseInEaseOut",
-                  duration: 20000 },
+    easing:"EaseInEaseOut",
+    duration: 20000 },
   fadeOut:{properties:{scaleX:0, scaleY:0, scaleZ:0, opacity: 0},
-                  easing:"Bounce", duration: 1000},
+    easing:"Bounce", duration: 1000},
   mainAnimation:[
-      ["scaleUp", "loopRotate", "fadeOut"],
+    ["scaleUp", "loopRotate", "fadeOut"],
   ]
 });
 

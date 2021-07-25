@@ -14,7 +14,7 @@ import {
   View,
   StyleSheet,
   PixelRatio,
-  TouchableHighlight,
+  TouchableHighlight, Image, ImageBackground,
 } from 'react-native';
 
 import {
@@ -47,7 +47,8 @@ export default class ViroSample extends Component {
 
     this.state = {
       navigatorType : defaultNavigatorType,
-      sharedProps : sharedProps
+      sharedProps : sharedProps,
+      reload: true
     }
     this._getExperienceSelector = this._getExperienceSelector.bind(this);
     this._getARNavigator = this._getARNavigator.bind(this);
@@ -71,40 +72,57 @@ export default class ViroSample extends Component {
   // Presents the user with a choice of an AR or VR experience
   _getExperienceSelector() {
     return (
-      <View style={localStyles.outer} >
-        <View style={localStyles.inner} >
+      <ImageBackground source={require("./js/res/background.png")} style={localStyles.backImage} imageStyle={{ opacity: 0.7 }} >
+        <View style={localStyles.outer} >
+          <View style={localStyles.inner} >
 
-          <Text style={localStyles.titleText}>
-            Experience Georgian Mythology
-          </Text>
+            <Text style={localStyles.titleText}>
+              კოლხეთის ვირტუალური კარიბჭე
+            </Text>
 
-          <TouchableHighlight style={localStyles.buttons}
-            onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}
-            underlayColor={'#68a0ff'} >
+            <TouchableHighlight style={localStyles.buttons}
+              onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}
+              underlayColor={'#68a0ff'} >
 
-            <Text style={localStyles.buttonText}>Port In</Text>
-          </TouchableHighlight>
+              <Text style={localStyles.buttonText}>შესვლა</Text>
+            </TouchableHighlight>
 
-          {/*<TouchableHighlight style={localStyles.buttons}*/}
-          {/*  onPress={this._getExperienceButtonOnPress(VR_NAVIGATOR_TYPE)}*/}
-          {/*  underlayColor={'#68a0ff'} >*/}
+            {/*<TouchableHighlight style={localStyles.buttons}*/}
+            {/*  onPress={this._getExperienceButtonOnPress(VR_NAVIGATOR_TYPE)}*/}
+            {/*  underlayColor={'#68a0ff'} >*/}
 
-          {/*  <Text style={localStyles.buttonText}>VR</Text>*/}
-          {/*</TouchableHighlight>*/}
+            {/*  <Text style={localStyles.buttonText}>VR</Text>*/}
+            {/*</TouchableHighlight>*/}
+          </View>
         </View>
-      </View>
+      </ImageBackground>
     );
   }
 
   // Returns the ViroARSceneNavigator which will start the AR experience
   _getARNavigator() {
     return (
-      <ViroARSceneNavigator {...this.state.sharedProps}
-        initialScene={{scene: InitialARScene}}
-        numberOfTrackedImages={1}
-        autofocus={true}
-      />
+      <View style={localStyles.viroContainer} >
+          <ViroARSceneNavigator {...this.state.sharedProps}
+            initialScene={{scene: InitialARScene}}
+            numberOfTrackedImages={1}
+            autofocus={true}
+          />
+      <View style={{position: 'absolute', left: 0, right: 0, bottom: 60, alignItems: 'center'}}>
+
+        <TouchableHighlight style={localStyles.exitButton}
+                            onPress={this._exitViro}
+                            underlayColor={'#00000000'} >
+          <Image source={require("./js/res/reload.png")} />
+        </TouchableHighlight>
+      </View>
+    </View>
     );
+  }
+
+  _hittingThatRefButton(){
+    // this.props.sceneNavigator.replace({scene:HelloWorldSceneAR});
+    console.debug("Clicked");
   }
 
   // Returns the ViroSceneNavigator which will start the VR experience
@@ -142,13 +160,11 @@ var localStyles = StyleSheet.create({
     flex : 1,
     flexDirection: 'row',
     alignItems:'center',
-    backgroundColor: "black",
   },
   inner: {
     flex : 1,
     flexDirection: 'column',
     alignItems:'center',
-    backgroundColor: "black",
   },
   titleText: {
     paddingTop: 30,
@@ -176,15 +192,18 @@ var localStyles = StyleSheet.create({
   },
   exitButton : {
     height: 50,
-    width: 100,
+    width: 50,
     paddingTop:10,
     paddingBottom:10,
     marginTop: 10,
-    marginBottom: 10,
-    backgroundColor:'#68a0cf',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#fff',
+    marginBottom: 10
+  },
+  backImage: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+    backgroundColor: 'hsla(205, 83%, 16%, 0.87)',
+    opacity: 0.7
   }
 });
 
